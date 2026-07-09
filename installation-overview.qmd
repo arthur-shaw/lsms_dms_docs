@@ -1,0 +1,22 @@
+# Overview
+
+This project relies on several pieces of free and open-source software to do its work:
+
+- **R.** Interpreter/runtime for executing R code.
+- **RTools.** Compiler needed to compile source code written in C++ and and that certain packages use to be more performant (e.g., `{dplyr}`).
+- **RStudio.** Integrated development environment for running R code outside of the terminal.
+- **R packages.** Programs that contain functions for solving specific problems (e.g., reading/writnig Excel files).
+- **Quarto** Publication tool for building reports.
+
+Some of these need to be installed manually:
+
+- R
+- RTools
+- RStudio
+
+See more on how to do so in the next chapter.
+
+Others are installed automatically:
+
+- **R Packages.** When first opened, the project automatically installs all the packages it needs in a special project directory. No need to install any packages manually.
+- **Quarto.** As a convenience to users, RStudio comes with its own version of Quarto. No need to install Quarto separately.

@@ -1,0 +1,53 @@
+# Install pre-requisites
+
+This project needs the user to install these specific things with these specific versions.
+
+- [R](#r) version 4.5.3
+- [RTools](#rtools) version 4.5
+- [RStudio](#rstudio) any version from 2024 onward
+
+Note: these version numbers are important, for a few reasons.
+
+First, the project requires specific versions of specific packages that are designed to work for the project's specific version of R. If the project does not find the required version of R, it will fail in installing the required packages.
+
+Second, the versions of R and RTools need to match. RTools builds packages for a specific version of R. That means R needs the right version of RTools in order to build packages that it can use.
+
+Third, the project uses certain features of R that are not available for older versions. In particular, the project uses the native pipe (`|>`). This feature is only available for more modern versions of R.
+
+## R
+
+To install R:
+
+- Follow this [link](https://cran.r-project.org/)
+- Click on your operating system
+- Click on `base`
+- Find version 4.5.3
+- Download and install (e.g.,
+  [this](https://cran.r-project.org/bin/windows/base/old/4.5.3/R-4.5.3-win.exe) for Windows)
+
+## RTools
+
+To install RTools:
+
+- Follow this [link](https://cran.r-project.org/)
+- Click on `Windows`
+- Click on `RTools`
+- Find version 4.5
+- Download
+  (e.g.,[this](https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-6768-6492.exe) for a 64bit  architecture)
+- Install in the default location suggested by the installer
+(e.g., `C:\rtools4'`)
+
+## RStudio
+
+To install RStudio:
+
+- Follow this [link](https://posit.co/download/rstudio-desktop/)
+- Click on the `DOWNLOAD RSTUDIO` button
+- Select the right file for your operating system
+- Download and install (e.g.,
+  [this](https://download1.rstudio.org/electron/windows/RStudio-2024.09.1-394.exe) for Windows)
+
+The exact version of RStudio does not matter as much.
+
+That said, it is important to install a version from 2024 and onward that includes its own copy of Quarto.

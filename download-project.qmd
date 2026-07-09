@@ -1,0 +1,13 @@
+# Download the project
+
+To find the project's code, navigate to its repository on GitHub: 
+https://github.com/arthur-shaw/lsms2_dms.
+
+To get the project's code on your device, follow these simple steps:
+
+there are a two approaches, from simplest to most sophisticated:
+
+- Navigate to the repository: https://github.com/arthur-shaw/lsms2_dms
+- Click on the `Code` button
+- Select `Download zip` and download
+- Unzip the project on your device

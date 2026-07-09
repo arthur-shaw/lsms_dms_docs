@@ -5,6 +5,40 @@ book:
   title: "LSMS 2.0 Data Management System Documentation"
   chapters:
     - index.qmd
+    # - project-overview.qmd
+    - part: "Installation"
+      chapters: 
+        - installation-overview.qmd
+        - install-pre-requisites.qmd
+        - download-project.qmd
+    # - part: "Setup"
+    #   chapters:
+    #     - params-overview.qmd
+    #     - server-details.qmd 
+    #     - questionnaires.qmd
+    #     - validation-behavior.qmd
+    #     - report-period.qmd
+    # - part: "Usage"
+    #   chapters:
+    #     - usage-overview.qmd
+    #     - open-project.qmd
+    #     - launch.qmd
+    #     - choose-workflow.qqmd
+    # - part: "Workflows"
+    #   chapters:
+    #       - get-data.qmd
+    #       - validate-interviews.qmd
+    #       - reject-interviews.qmd
+    #       - create-monitoring-report.qmd
+    # - part: "Outputs"
+    #   chapters:
+    #       - data.qmd
+    #       - recommendations.qmd
+    #       - decisions.qmd
+    # - part: "Troubleshooting"
+    #   chapters:
+    #     - check-setup.qmd
+    #     - document-steps.md
 
 format:
   html:
