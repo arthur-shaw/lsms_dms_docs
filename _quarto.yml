@@ -1,0 +1,16 @@
+project:
+  type: book
+
+book:
+  title: "LSMS 2.0 Data Management System Documentation"
+  chapters:
+    - index.qmd
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+
+

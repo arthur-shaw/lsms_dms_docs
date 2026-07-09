@@ -1,0 +1,12 @@
+# Preface {.unnumbered}
+
+While the project README offers a quick started guide, this document both delivers a deeper treatment of the same topics and covers topics topics that READMEs rarely do.
+
+This document is divided into several parts:
+
+- **Installation.**
+- **Setup.**
+- **Usage.**
+- **Workflows.**
+- **Outputs.**
+- **Troubleshooting.**
