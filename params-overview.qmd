@@ -1,0 +1,33 @@
+# Overview
+
+Even though LSMS 2.0 relies on a harmonized questionnaire, several things may differ from one country to the next. To work properly, this project needs to know about those survey-specific parameters.
+
+To inform the project about these parameters, the user will need to provide these details in the `_parameters.R` file in the root of the project folder.
+
+```
+.
+├── 01_data
+├── 02_validation
+├── 03_monitoring
+├── dev
+├── i18n
+├── inst
+├── lsms2_dms.Rproj
+├── R
+├── README.md
+├── renv
+├── renv.lock
+├── run_workflow.R
+└── _parameters.R # 👈 this file
+```
+
+These parameters can be categorized into a few groups:
+
+1. Server
+2. Questionnaires
+3. Validation workflow
+4. Report period
+
+Each of these parameters will help the program do the right things as it acts on your behalf.
+
+Each of these will be explained in further details in the following chapters.

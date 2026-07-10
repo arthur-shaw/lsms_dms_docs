@@ -1,0 +1,187 @@
+# Server
+
+## Motivation
+
+For traditional data monitoring workflows, one typically downloads data from the server manually. This involves:
+
+- Selecting the questionnaire
+- Selecting the version a version of the questionnaire
+- Selecting the export format
+- Clicking to start the export process
+- Waiting until the export process is complete
+- Clicking to download the data
+- Unipping the data
+
+And since urvey may have multiple quetionnaire and each questionnaire may have several versions, this is process is repeated for each questionnaire-version.
+
+For this project, the program does this all for you automatically. However, to do this, the program needs:
+
+- **Server address.** Where to navigate.
+- **API user account details.** With a user that can take actions.
+
+## Server address
+
+To know where to navigate, the program needs:
+
+- **Server URL.** The web address of the server.
+- **Workspace name.** The workspace name that needs to be added to the server's web address to find the target workspace.
+
+```r
+# =============================================================================
+# 1. Server details
+# =============================================================================
+
+server    <- "" # <1>
+workspace <- "" # <2>
+user      <- ""
+password  <- ""
+```
+
+1. `server` captures the full web address of the server. For the World Bank's demo server, for example, this would be `https://demo.mysurvey.solutions/`.
+2. `workspace` captures the name of the workspace. Note: use the `name` attribute rather than the `display name`. See more [here](https://docs.mysurvey.solutions/headquarters/accounts/workspaces/#workspace-attributes). There are a few simple ways to find this parameter. Method 2: 
+ For the default workspace, the name would be `primary`.
+
+To collect these parameters, here are a few tips.
+
+#### Server
+
+Since this is simply the web address of the server, do the following to get the server address:
+
+- Open a web browser
+- Navigate to the server in the usual way
+- Copy and paste the web address from the address bar of your web browser
+- Delete everything except the core web address
+  - If not logged in to the server, remove `Account/LogOn?ReturnUrl=%2F` from the end of the address
+  - If logged in, remove parts of the URL that provide your location in the app (e.g., `{workspace}/Reports/SurveysAndStatuses`, where `{workspace}` is the name of the workspace).
+
+To crystalize this, let's consider a few examples.
+
+##### Example 1: server login screen
+
+Scenario:
+
+- Navigated to the server's login screen
+- Prompted to log in
+- See this in the brower's address bar:
+`https://my-surveys.nso.org/Account/LogOn?ReturnUrl=%2F`
+
+Answer:
+
+To get the server's address, take the address in the browser's address bar and remove everything from `Account/` onward.
+
+This yields a server address of `https://my-surveys.nso.org/`.
+
+That means `_parameters.R` should be filled out as follows:
+
+```r
+# =============================================================================
+# 1. Server details
+# =============================================================================
+
+server    <- "https://my-surveys.nso.org/"
+```
+
+##### Example 2: logged into the server
+
+Scenario:
+
+- Navigated to the server
+- Logged in
+- See this in the browser's address bar: `https://household.surveys/lsms2/Reports/SurveysAndStatuses`
+
+Answer:
+
+```r
+# =============================================================================
+# 1. Server details
+# =============================================================================
+
+server    <- "https://household.surveys/lsms2/"
+```
+
+#### Workspace
+
+There are two simple methods to get this information:
+
+1. From the administrator's workspace page
+2. From the web address
+
+##### From the administrator's workspace page
+
+For this method:
+
+- Log into the server as admininistrator
+- Click on the cog in to access the administration pages 
+- Click on the `Workspaces` tab
+- Find the target workspace in the table
+- Copy the value in the `NAME` column
+
+To provide an example, imagine the table on workspaces page is as follows:
+
+| --- | --- | --- |
+| NAME | DISPLAY NAME | CREATED ON |
+| --- | --- | --- |
+| pretest | Pretest | 2026-01-01 |
+| pilot | Pilot | 2026-03-01 |
+| training | Interviewer training | 2026-06-01 |
+| survey | Household survey 2026 | 2026-07-01 |
+
+What value should `workspace` be for the household survey? Answer: `survey`.
+
+##### From the web address
+
+For this method:
+
+- Log in as any user
+- Navigate to the target workspace
+- Look at the web address in the browser's address bar
+- Copy the part comes immediately after the server's address
+
+To ground this in a practical example, imagine that your URL is `https://my-surveys.nso.org/primary/Reports/SurveysAndStatuses`. Taking `/` as a delimiter, this can be decomposed into:
+
+- Server's web address: `https://my-surveys.nso.org/`
+- Workspace: `primary`
+- Page: `Reports/SurveysAndStatuses`
+
+For this example, one should wri
+
+```r
+# =============================================================================
+# 1. Server details
+# =============================================================================
+
+server    <- "https://my-surveys.nso.org/primary"
+workspace <- "primary"
+```
+
+## API user account details
+
+To perform any action on the server, one needs a user account. Somewhat surprisingly, programs are no different. Whether for a person or a program, a user account is needed to export data, reject interviews, etc.
+
+While people and programs both need accounts to perform actions on the server, they need different kinds of accounts. For people, Heaquarters, Supervisor, and Interviewer accounts allow users permissions to do their work through the point-and-click interface. For programs, API accounts enable applications, like this project, to peform similar actions through Survey Solutions' API endpoints.
+
+So for this program to do its work, the server administrator will need to create an API user account. To do so:
+
+- Click on the cog to reach the administration tabs
+- Click on `Users`
+- Click on `ADD USERS`
+- Select the target workspace (i.e, the one where the project needs the API user to act)
+- Select `ApiUser` as the user role
+- Provide a user name and password as usual
+
+Note: only the administrator will be able to create an API user. While a Headquarters user can create user accounts, that role cannot create an API user.
+
+For more details: see [here](https://docs.mysurvey.solutions/headquarters/accounts/teams-and-roles-tab-creating-user-accounts/) on creating a user and [here](https://docs.mysurvey.solutions/headquarters/accounts/teams-and-roles-tab-creating-user-accounts/) on adding a user to a workspace.
+
+Once this process is complete, copy and paste the API user's user name and password into the `user` and `password` below.
+
+```r
+# =============================================================================
+# 1. Server details
+# =============================================================================
+
+server    <- ""
+workspace <- ""
+user      <- "MyAPIUser"
+password  <- "Password123"
+```

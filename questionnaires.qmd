@@ -1,0 +1,275 @@
+# Questionnaires
+
+## Motivation
+
+Even though the LSMS 2.0 survey initiative relies on a harmonized questionnaire, most of whose components remain unchanged across all country deployments, questionnaires do differ across deployments in ways that are meaningful for this project.
+
+For that reason, to work correctly, the project needs to know a few things about the questionnaires upon which it will act:
+
+- **Questionnaire title.** To determine the questionnaire(s) for which data should be downloaded.
+- **Questionnaire variable.** To identify which data set among those exported is the "main" one.
+- **Roster and variable names.** To provide the names of data sets and variables needed for high-frequency checks.
+
+The following sections provide details on the information that is needed, how to get it, and where/how to provide it in `_parameters.R`.
+
+## Questionnaire title
+
+For any given workspace, typically there are questionnaries. For the LSMS 2.0 initiative, at a minimum, there is household questionnaire and a community questionnire. Often, there may be several versions of those questionnaires. Some versions may be related to the phase of work (e.g., pre-test, pilot, training, survey) and names that reflect that (e.g., "Household survey - pilot", "Household survey - final", etc.). Other versions may have the name name but reflect updates and corrections to the questionnaire (e.g., version 1, version 2, version 3, etc.)
+
+To download data for the right questionnaires, the project needs some text that matches the titles of only those questionnaires of interest. This text could be:
+
+1. Full title
+2. Sub-string
+3. Regular expression
+
+To see how each works, consider a few practical examples.
+
+For the first two types of text, use Headquarters to follow along with your own questionnaires. To do so, first log into your server as Headquarters or Administrator. Then, navigate to the Questionnaires screen: click on the `Survey Settings` menu and select `Questionnaires`. Next, type text in the search field and check whether that text filters to all of the questionnaires of interest. Repeat as needed.
+
+For the last type of text, which is typically reserved for difficult cases only, you will need other tools to experiment.
+
+### Full title
+
+To make this dicussion practical, imagine that the question this is how the questionnaires tab looks on your server (i.e., the table of questionnaires in `Survey Setup` > `Questionnaires`).
+
+| TITLE | VERSION | IMPORTED ON | MODIFIED ON | CREATED ON | MODE |
+| --- | --- | --- | --- | --- | --- |
+| Household questionnaire - pilot | 1 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - pilot | 2 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 1 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 2 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 3 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+
+There are two questionnaires:
+
+- Household questionnaire - pilot
+- Household questionnaire - final
+
+Each questionnaire has several versions: "pilot" has versions 1 and 2; "final" has versions 1, 2, and 3.
+
+To download the data for the "final" questionnaire, one needs to write text that identifies all instances of those questionnaires. That is, text that matches only these lines of the table:
+
+| TITLE | VERSION | IMPORTED ON | MODIFIED ON | CREATED ON | MODE |
+| --- | --- | --- | --- | --- | --- |
+| Household questionnaire - final | 1 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 2 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 3 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+
+Let's start with "Household questionnaire". This text appears in the title of the target questionnaires. But it also appears in the title of the pilot questionnaires. In fact, it matches the title of all questionnaires in our questionnaire table:
+
+| TITLE | VERSION | IMPORTED ON | MODIFIED ON | CREATED ON | MODE |
+| --- | --- | --- | --- | --- | --- |
+| Household questionnaire - pilot | 1 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - pilot | 2 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 1 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 2 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 3 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+
+Let's refine the text. Notice that the questionnaire titles of the "pilot" and "final" questionnaires differ only by a single word. The "pilot" questionnaires contain "pilot". The "final" questionnanires contain "final".
+
+Based on that observation, let's expand the question text to include the part that differs between the "pilot" and "final" questionnaires. In other words, let's let the text for identifying the questionnaires of interest be the full questionnaire title: "Household questionnaire - final"
+
+As expected, this matches only the questionnaires of interest:
+
+| TITLE | VERSION | IMPORTED ON | MODIFIED ON | CREATED ON | MODE |
+| --- | --- | --- | --- | --- | --- |
+| Household questionnaire - final | 1 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 2 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 3 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+
+Having achieved the desired result, let's record the full question title text in `_parameters.R`:
+
+
+```r
+# =============================================================================
+# 2. Questionnaires
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Household questionnaire
+# -----------------------------------------------------------------------------
+
+# text that identifies the questionnaire(s)
+household_qnr_expr <- "Household questionnaire - final"
+```
+
+### Sub-string
+
+Let's return to the example from the [full title section](#full-title) above:
+
+| TITLE | VERSION | IMPORTED ON | MODIFIED ON | CREATED ON | MODE |
+| --- | --- | --- | --- | --- | --- |
+| Household questionnaire - pilot | 1 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - pilot | 2 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 1 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 2 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 3 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+
+Let's recall that the questionnaire title of the "pilot" and "final" questionnaires differed only by one word: "pilot" identifies pilot questionnaires; "final" identifies final questionnaries for data collection.
+
+From this observation, it follows that a sub-string--that is, part of the questionnaire title--may be enough to match the questionnaires of interest. Sometimes, as is the case here, this might be a single word.
+
+Whether the sub-string a single word or a longer block of text, one always needs to verify that the sub-string matches all of the target questionniares. As mentioned at the start of [this section on the questionnaire title](#questionnaire-title), one can use the search functionality on the Questionnaire page of Headquarters to verify whether any given sub-string matches the desired targets.
+
+For the example above, "final" is the right sub-string. Accordingly, let's record it in `_parameters.R`:
+
+```r
+# =============================================================================
+# 2. Questionnaires
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Household questionnaire
+# -----------------------------------------------------------------------------
+
+# text that identifies the questionnaire(s)
+household_qnr_expr <- "final"
+```
+
+### Regular expression
+
+For the vast majority of cases, the two strategies discussed above--full questionnaire title and sub-string of the title--should work. Only for only the most difficult cases might regular expressions be needed.
+
+While regular expressions themselves are beyond the scope of this documentation, there are a few things of note for how R implements them. The short version: one needs to escape the `\` in regular expressions that use them. For example, if ones wants to match a `.` in a questionnaire title, a normal regular expression would write `\.`, since `.` special meaning in regular expressions and `\.` indicates that one is targetting the literal `.` character. Whereas normal regular expressions require a single escape character, R requires two. To match the `.` character, one would write `\\.` in a regular expression in R. See more examples on the second page of [this document](https://github.com/rstudio/cheatsheets/blob/main/strings.pdf).
+
+If you would like to learn regular expressions, consider the following resources:
+
+- Practical primer: interactive lesson interactive lessons on [RegexLearn](https://regexlearn.com/). Foor
+- Comprehensive documentation: find relevant articles and explainers on [Regular-Expressions.info](https://www.regular-expressions.info/).
+
+## Questionnaire variable
+
+For most surveys, Survey Solutions exports several data sets. For several operations, this project must act onthe "main" data set.
+
+That name will be specific to each survey. Certaintly, the name will vary from one country survey to the next (e.g., `NPS`, `ihs7`, `household`, etc.). Likely, the name will vary, for a given country, from one phase of data collection to the next (e.g., `household_pilot`, `household_final`, etc.).
+
+So that this project references the right data file, the "questionnaire variable" name must be provided.
+
+To find this value for your questionnaire:
+
+- Log into Designer
+- Find your questionnaire
+- Click on the `SETTINGS` button at the top of the page
+- Copy the values from the `Questionnaire variable` field
+
+Once this value is in hand, paste it into the `""` in `_parameters.R`.
+
+For illustrative purposes below, let's imagine that `household` was the questionnaire variable for the household questionnaire , and `community` for the community questionnaire.
+
+```r
+# =============================================================================
+# 2. Questionnaires
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Household questionnaire
+# -----------------------------------------------------------------------------
+
+# value of the questionnaire variable
+household_qnr_var  <- "household"
+
+
+# -----------------------------------------------------------------------------
+# Community questionnaire
+# -----------------------------------------------------------------------------
+
+# value of the questionnaire variable
+community_qnr_var  <- "community"
+
+```
+
+## Roster and variable names
+
+While the names of data sets and variables should be identical from one survey to the next--indeed, this is one attribute of a harmonized questionnaire--a few might differ.
+
+To capture these differences, `_parameters.R` asks about the name of the members roster data set and the names of grouping variables for identifying outliers.
+
+### Members roster
+
+The LSMS 2.0 questionnaire covers two cases:
+
+1. Start a new cross-section
+2. Continue a panel
+
+For each case, there is a different approach to identifying the members of the household. For the latter, identification involves determining which previous members are still part of the household. For the former, identification entails simply listing the current members of the household.
+
+And for these different approaches, there will be different names for the roster of household members. For panel surveys, the name will typically be `t0_hhroster`, the roster in section T-0 where the names and attributes of previous members are preloaded. For cross-sectional surveys, the name will typically be `members`, the roster in section 1 where the current household members are compiled.
+
+```r
+# =============================================================================
+# 2. Questionnaires
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Household questionnaire
+# -----------------------------------------------------------------------------
+
+# name of the member-level file, as it appears in Designer and without `.dta`
+members_roster_var <- ""
+
+```
+
+There are two ways to get or verify the correct name:
+
+1. Export data
+2. Check Designer
+
+#### Export data
+
+Since it can sometimes be difficult to guess the names of the data sets Survey Solutions exports and their contents, it might be most efficient to:
+
+- Import the questionnaire into Headquarters
+- Export data for this questionnaire
+- Check the names of the exported data sets
+- Confirm whether candidate data sets contain variables from the roster of household members (e.g., `hh01_q02`, `hh01_q03`, etc.)
+
+While survey implementers often assume that data can only be exported if at least one interview has been collected, that's thankfully not the case. Even before data collection has begun, one can export data, albeit data sets without any records, in order to get a sense of the structure of the data.
+
+#### Check Designer
+
+Survey Solutions follows two rules for rosters:
+
+- Any two rosters that have the same source question will be exported in the same data file
+- The exported data file will assume the name of the first such roster found
+
+With that in mind, this strategy entails:
+
+- Opening the questionnaire in Designer
+- Search for the first roster whose source question is `hh01_q01`
+
+To do the same via different means:
+
+- If section `[T-0]` exists,
+  - Find the roster there
+  - Click on it
+  - Copy the value of the `Roster ID` field
+- If section `[T-0]` does not exist, navigate to section 1
+  - Find the roster there
+  - Click on it
+  - Copy the value of the `Roster ID` field
+
+### Questions for grouping
+
+When the program looks for statistical outliers, it looks within groups of observations that are expected to have relatively similar values.
+
+For the moment, the program uses two identifying information to do so:
+
+- Administrative division level 1
+- Urban / urban
+
+For the program to check for outliers in this group, one must provide the namess of these two variables.
+
+```r
+# =============================================================================
+# 2. Questionnaires
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Household questionnaire
+# -----------------------------------------------------------------------------
+
+# name of variables used for outlier groups: admin1 and urban/rural
+admin1_var <- ""
+urb_rur_var <- ""
+
+```

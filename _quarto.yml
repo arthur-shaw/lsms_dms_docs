@@ -11,13 +11,13 @@ book:
         - installation-overview.qmd
         - install-pre-requisites.qmd
         - download-project.qmd
-    # - part: "Setup"
-    #   chapters:
-    #     - params-overview.qmd
-    #     - server-details.qmd 
-    #     - questionnaires.qmd
-    #     - validation-behavior.qmd
-    #     - report-period.qmd
+    - part: "Setup"
+      chapters:
+        - params-overview.qmd
+        - server-details.qmd 
+        - questionnaires.qmd
+        - validation-behavior.qmd
+        # - report-period.qmd
     # - part: "Usage"
     #   chapters:
     #     - usage-overview.qmd
@@ -46,5 +46,4 @@ format:
   pdf:
     documentclass: scrreprt
 
-
-
+code-annotations: below

@@ -1,0 +1,74 @@
+# Validation behavior
+
+## Motivation
+
+While this project performs a standardized set of jobs, there is scope to customize how the project does so.
+
+In particular, users may adjust:
+
+- **Interview statuses to review.** In Survey Solutions, each interview have a status. This parameter determines which interviews, based on their status, should be be subjected to high-frequency checks.
+- **Issue types that trigger rejection.** This project generates issues, but there are several different types of issues. This parameter determines which issues types, if found, trigger could rejection.
+
+## Statuses to validate
+
+In the Survey Solutions, each interview has a status in the approval workflow. See more on the codes [here](https://docs.mysurvey.solutions/headquarters/export/system-generated---export-file-anatomy/#coding_status).
+
+In this project, high-frequency checks can be run for interviews that could be rejected back to the field for explanationa and/or remediation:
+
+- **`Completed` (100).** Completed by the interviewer but not yet acted upon the interviewer's supervisor.
+- **`Approved` (120).** Approved by the supervisor but not yet acted upon by Headquarters.
+- **`ApprovedByHeadquarters` (130).** Approved by the Headquarters.
+
+So that this project suits the implementer's preferred workflow, the user may select one or more of these statuses as candidates for review.
+
+To understand these in practical terms, consider a few frequently used selections and their underlying rationale.
+
+- **`Completed` and `Approved`.** This is the default value in `_parameters.R`. This posture provides the fastest feedback for field teams. As soon as an interview hits the server, it is a candidate for review. Also, it may recognize that supervisors often do not have the time to review interviews and/or may not have any role in Survey Solutions.
+- **`Approved` only.** This setting assumes that supervisors perform a supervisory function in Survey Solutions and positions this project as either a reviewer of their work or as an automated safeguard against poor performance by supervisors.
+- **`ApprovedByHeadquarters`.** Typically used in conjunction with other statuses, this status selection assumes that there is manual approval/rejection at the Headquarters level and positions the project as an automated tool for supplementing or correcting manual work done by Headquarters users.
+
+To record the desired selections, one needs to record one or more numbers for the `suso_statuses_to_reject` parameters.
+
+To record a single value, write it inside of `c()`
+
+```r
+# =============================================================================
+# 3. Validation behavior
+# =============================================================================
+
+# review only the interviews approved by supervisors
+suso_statuses_to_reject <- c(120)
+```
+
+To record several values, write a comma-separated list inside of `c()`
+
+```r
+# =============================================================================
+# 3. Validation behavior
+# =============================================================================
+
+# reject it all
+suso_statuses_to_reject <- c(100, 120, 130)
+```
+
+## Issues to reject
+
+The project recognizes different types of issues: those that it deems warrant rejection, comments on questions (e.g., outliers), Survey Solutions validation errors, and issues that warrant review.
+
+By default, the project will recommend for rejection only those that it deems warrant rejection. But the end user can reject interviews with other issues as well.
+
+To do so, include the number(s) corresponding to the target issue types(s):
+
+```r
+# =============================================================================
+# 3. Validation behavior
+# =============================================================================
+
+# Provide a comma-delimited vector of issue types to reject
+# {susoreview} uses the following codes:
+# - 1 = Reject
+# - 2 = Comment a variable
+# - 3 = Survey Soluttions validation error
+# - 4 = Review
+issue_codes_to_reject <- c(1)
+```
