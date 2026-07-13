@@ -43,7 +43,5 @@ book:
 format:
   html:
     theme: cosmo
-  pdf:
-    documentclass: scrreprt
 
 code-annotations: below
