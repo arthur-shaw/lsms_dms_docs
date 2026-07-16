@@ -1,0 +1,55 @@
+# Choose
+
+After sourcing (running/executing) `run_workflow.R` in the `Code` pane, the project will ask in the `Console` pane which workflow to run.
+
+```
+── Data Quality Workflows ────────────────────────────────────────────────────────────────────────────────────────────────
+Which workflow would you like to run? 
+
+1: Get data
+2: Validate interviews
+3: Reject flagged interviews
+4: Create monitoring report
+
+Selection:
+```
+
+To run a workflow:
+
+- Type the number of your choice
+- Press `Enter`
+
+The project will then execute the workflow. In some cases, the project may ask more questions (e.g., which data source). In other cases, it may continue.
+
+For a summary of what each workflow does, read below. For a a fuller description of each, see the workflows section.
+
+## Get data
+
+This workflow does one and only one thing: it gets data.
+
+Whereas other workflows may first get data and then perform actions on those data, this workflow simply:
+
+- Exports data, for both the household and community questionnaire, all versions of each questionnaire
+- Downloads exported data
+- Unzips downloads
+- Combines data
+
+These data could be used either by the project for other workflows or by the user for work outside of this project (e.g., custom reports).
+
+## Validate interviews
+
+This workflow checks the data for issues, identifies interviews with issues, and suggests actions.
+
+In more detail, this workflow:
+
+- **Check data for logical errors and statistical outliers.** The logical errors are serious ones that complement those detected by Survey Solutions. The statistical outleirs are issues that Survey Solutions cannot identify.
+- **Recommend actions to take.** For each interview, the project makes a recommendation: to reject, to review, and to follow up. In the process, the project creates data sets of issues identified and actions recommended.
+- **Propose interviews to reject.** If the project recommends to reject any interviews, it will create a data file of interviews and issues found that the project can use, via another workflow, to reject those interviews and post appropriate error messages.
+
+## Reject flagged interviews
+
+This workflow rejects interviews that are proposed to be rejected. See the [validate interviews workflow](#validate-interviews) above for more details.
+
+## Create monitoring report
+
+Note: not yet implemented

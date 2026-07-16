@@ -1,0 +1,8 @@
+# Overview
+
+To use the project, one needs to perform a few actions that will be described in more detail in the following chapters:
+
+- Open the project
+- Launch the project by running a program
+- Choose which workflow to execute
+- Find and consume the results

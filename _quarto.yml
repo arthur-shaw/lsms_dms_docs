@@ -18,12 +18,13 @@ book:
         - questionnaires.qmd
         - validation-behavior.qmd
         # - report-period.qmd
-    # - part: "Usage"
-    #   chapters:
-    #     - usage-overview.qmd
-    #     - open-project.qmd
-    #     - launch.qmd
-    #     - choose-workflow.qqmd
+    - part: "Usage"
+      chapters:
+        - usage-overview.qmd
+        - open-project.qmd
+        - launch.qmd
+        - choose-workflow.qmd
+        - find-results.qmd
     # - part: "Workflows"
     #   chapters:
     #       - get-data.qmd

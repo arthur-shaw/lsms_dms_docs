@@ -1,0 +1,69 @@
+# Find results
+
+These three top-level project directories house the results of the project's workflows.
+
+```
+├── 01_data
+├── 02_validation
+├── 03_monitoring
+```
+
+## Data
+
+To find data, navigate to `01_data/`
+
+Within this directory, data are sorted by their type
+
+```
+01_data
+├── 00_meta
+├── 01_household
+└── 02_community
+```
+
+Metadata on team composition--that is, which interviewers are mapped to which supervisors--can be found in `00_meta/`. Microdata from the household and community questionnaires an be found in `01_household/` and `02_community/`, respectively.
+
+Within either the household or community data directory, one will find several sub-directories.
+
+```
+01_data/01_household
+├── 00_inbox
+├── 00_tracked
+├── 01_downloaded
+└── 02_combined
+```
+
+Each directory contains data at different levels of processing:
+
+- Downloaded from the server:
+  - Automatically, by this project: `01_downloaded`
+  - Manually, by a human: `00_inbox` 
+- Combined data from all versions: `02_combined`
+
+## Validation
+
+To find the results of high-frequency checks, navigate to `02_validation/`.
+
+Within that directory, there is a sub-directory for each questionnaire, even though validation is currently performed only for the household questionnaire.
+
+```
+02_validation
+├── 01_household
+└── 02_community
+```
+
+For each questionnaire, there are sub-directories that contain various valdiation outputs.
+
+```
+02_validation/01_household
+├── 01_recommendations
+├── 02_decisions
+```
+
+For a compilition of issues found and recommended actions, look in `01_recommendations`.
+
+For the file use to reject interviews, look in `02_decisions`.
+
+## Monitoring
+
+Note: not currently implemented.

@@ -1,0 +1,56 @@
+# Open
+
+## Motivation
+
+This project is not just a set of scripts. It is also a computational environment for running those scripts. In practical terms, the project needs R, Quarto, and R packages--all in specific versions--for the project to run correctly. In more technical terms, the project environment consists of a set of system package (e.g., R, RTools, Quarto) and R package dependencies (e.g., particular R packages pinned at particular versions).
+
+<!-- TODO: add chapter link -->
+
+Thanks to project installation, users should now have the system packages installed--that is, R, RTools, RStudio, and Quarto. However, attentive readers may have noticed, users have not been asked yet to install R packages. Why not? What should users do?
+
+The good news: users do not need to install R packages manually. The less good news: users need to open the project correctly for R packages to be automatically installed, in a project-specific way, on their behalf.
+
+This chapter will discuss how to open the project correctly and what to expect.
+
+## What to do
+
+The process is simple:
+
+- Find `lsms2_dms.Rproj` in the directory where you've downloaded the project's code
+- Double-click on `lsms2_dms.Rproj` 
+
+This will do several useful things:
+
+1. Open RStudio
+2. Open the project as an R project, which:
+  - Checks whether RTools and Quarto are installed
+  - Installs all required package at the project level
+  - Provides easy access to all project files through RStudio
+
+## What to exepect
+
+When RStudio opens this R project, it automatically:
+
+- **Checks requirements.** In particular, it checks whether RTools and Quarto are installed as well as a specific version of R itself. If this check passes, there will be success messages in the R console (e.g., `✔ Quarto found.`). If this check fails, there will be an error message describing the problem and what to do (e.g., `✖ Quarto cannot be found. Please install it.`).
+- **Installs required packages.** Specifically, it installs the necesary packages so that they are available for the project even if they are not available for other projects or on your global system.
+- **Activates the project environment.**  In particualr, it points to where the project-specific packages are located, avoiding confusion between the project-specific installation of pacakges and any other installations on your device.
+
+### Initial use
+
+For the first use, setup installs all of the required packages. Without any action required from the user, R will read the list of required packages and install them in a project folder. Note: an internet connection is needed for R to fetch the required packages.
+
+This process will either succeed or fail. If it succeeds, the user's project will have all of the packages it needs to run. If it fails, R will provide the user with some details on what failed and why.
+
+The next step depends on the outcome of the package installation process. If the package installation process succeeds, the user is ready to use the project. If the process fails, the user should:
+
+- Read error messages and see if there is any action to take
+- Document the problem and contact the project developer. In particular:
+  - Note the steps taken
+  - Describe the problem
+  - Copy and paste the contents of your Console
+
+The last point is likely the most important. To better troubleshoot the problem, the developer needs a full accounting of what commands have run and what information, warning, and error messages have appeared. Often, there may be several error messages and the full chain of error messages better help diagnose the problem than simply the last error. For R and other programming languages, errors can cascade. For example, if one pacakge fails to install than other packages upon which that first package depends will also fail to install.
+
+### Subsequent use
+
+For each subsequent use, opening the project will simply activate the project environment.
