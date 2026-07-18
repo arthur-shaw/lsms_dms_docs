@@ -12,7 +12,7 @@ For traditional data monitoring workflows, one typically downloads data from the
 - Clicking to download the data
 - Unipping the data
 
-And since urvey may have multiple quetionnaire and each questionnaire may have several versions, this is process is repeated for each questionnaire-version.
+And since a survey may have multiple quetionnaires and each questionnaire may have several versions, this is process is repeated for each questionnaire-version.
 
 For this project, the program does this all for you automatically. However, to do this, the program needs:
 

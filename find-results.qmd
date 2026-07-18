@@ -60,7 +60,7 @@ For each questionnaire, there are sub-directories that contain various valdiatio
 ├── 02_decisions
 ```
 
-For a compilition of issues found and recommended actions, look in `01_recommendations`.
+For a compilation of issues found and recommended actions, look in `01_recommendations`.
 
 For the file use to reject interviews, look in `02_decisions`.
 
