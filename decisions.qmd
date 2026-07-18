@@ -1,0 +1,15 @@
+# Decisions
+
+This project enables users, optionally, to automate the rejection of interviews.
+
+For interviews to be rejected, they need to be found in the `to_reject_api.xlsx` file found in the `02_validation/{questionnaire}/02_decisions/` directory.
+
+As a convenience to users, the validation workflow populates this file with interviews that it recommends be rejected.
+
+However, users may edit and add to that file as they see fit. For example, they may remove or add interviews. Similarly, they may edit comments for interviews found there.
+
+The `to_reject_api.xlsx` file should contain the following for each interview to reject:
+
+- `interview__key`. Unique interview identifier. Needed to identify the interview.
+- `reject_comment`. Rejection message that the interviewer will see. If there are several issues, they are separated by a carriage return.
+- `interview__status`. Survey Solutions' interview status. Necessary to know how to reject the interview (i.e., as Supervisor or as Headquarters).

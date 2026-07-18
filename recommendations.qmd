@@ -1,0 +1,59 @@
+# Recommendations
+
+The validation workflow reviews interviews, identifies issues, and recommends actions accordingly:
+
+- **Reject.** If there is 1+ validation issue and no potentially explanatory comment, neither for the interview overall nor for questions involved in the issue(s) found. These interviews can be rejected.
+- **Review.** If the interview would have been rejected except for potentially explanatory comments. These interviews require human review, at the very least to read the comments. These comments may be either at the level of the interview or at the level of a question involved in an issue. 
+- **Follow-up.** If the interview has already been rejected for the same reason(s) earlier. Since rejection has not lead to remedying the issue, survey managers need to follow-up to understand why not.
+
+In doing so, this workflow generates several outputs that document these issues and indicate the actions to take.
+
+Since different survey operations organize data quality management work differently, the following sections will provide an overview of how to implement two common approaches:
+
+- **Issues-based**
+  - Create a single data set of issues.
+  - Review issues manually.
+  - Decide actions manually
+  - Take action manually.
+- **Actions-based.**
+  - Create data sets of issues by action
+  - Take the recommended actions
+    - For rejections, automate rejection  
+    - For review and follow-up, where human judgement and action are needed, review manually
+
+The issues-based workflow is the traditional approach for which this project provides issues. The actions-based workflow is a new approach that this project makes possible.
+
+## Issues
+
+For issues-based workflows, the `issues` file is the right choice.
+
+A simple compilation of the issues identified, the file contains 1 row per issue.
+
+For each row, there is metadata about the issue:
+
+- To link issues with an interview, `interview__id` and `interview__id`.
+- To understand the typs of issues, `issue_type` has different values:
+  - 1 = serious issue that warrants rejections  
+  - 2 = comments, typically for statistical outliers
+- For a headquarters-facing summary, `issue_desc`
+- For the error message to be shared with the interviewer, `issue_comment`
+- Which question(s) involved in the issue, `issue_vars`
+- Which row(s), `issue_loc`
+
+## Actions
+
+For action-based workflows, there is one family of files per action.
+
+The file prefix describes the recommended action:
+
+- `to_reject_*`. Interviews that contains 1 or more issue that warrants rejection, without any potentially explanatory comments.
+- `to_review_*`. `Interviews that would otherwise be rejected except that there are potentially explanatory comments to be reviewed, whether comments on the interview as a whole or comments on the questions involved in the issues.
+- `to_follow_up_*`. Interviews that were rejected once already and contain unresolved issues.
+
+The rest of the file name describes the file's structure and/or contents:
+
+- `*_ids`. Interview-level file containing the interview__id and interview__key of cases that fall into this category.
+- `*_issues`. Issue-level file of issues for the interviews in this category.
+- `*_api`. Contains the information that the API needs to reject the interview: interview__id, reject_comment (a concatenation of all issue messages), and interview__status.
+
+For workflows that involve human review, the `*_issues` files will be the most human-readable.

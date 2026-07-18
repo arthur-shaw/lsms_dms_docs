@@ -31,11 +31,13 @@ book:
     #       - validate-interviews.qmd
     #       - reject-interviews.qmd
     #       - create-monitoring-report.qmd
-    # - part: "Outputs"
-    #   chapters:
-    #       - data.qmd
-    #       - recommendations.qmd
-    #       - decisions.qmd
+    - part: "Outputs"
+      chapters:
+        - outputs-overview.qmd
+        - data.qmd
+        - recommendations.qmd
+        - decisions.qmd
+        # - monitoring-report.qmd
     # - part: "Troubleshooting"
     #   chapters:
     #     - check-setup.qmd

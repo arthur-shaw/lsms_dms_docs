@@ -1,0 +1,9 @@
+# Overview
+
+This project produces three principle outputs:
+
+1. Data
+1. Recommendations
+1. Monitoring reports
+
+While an [earlier chapter](find-results.qmd) describes where to find these outputs, this section will describe the outputs themselves--what they contain, how the contents are structured, and how to use the contents.

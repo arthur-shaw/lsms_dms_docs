@@ -1,0 +1,110 @@
+# Data
+
+This project produces two types of data:
+
+1. Microdata
+1. Metadata
+
+## Microdata
+
+The microdata are simply the survey interview data in Stata format--that is, the answers to the survey questions.
+
+This project does not make any changes to the data. The files, variables, variables, and value labels are all identifical how Survey Solutions exports them.
+
+However, the project does combine data from all versions of a given questionnaire into a single set of data files.
+
+To see what this means in practice, consider the following hypothetical example.
+
+On the data collection server, the household questionnaire has versions 1, 2, and 3, and all 3 versions were used for data collection.
+
+| TITLE | VERSION | IMPORTED ON | MODIFIED ON | CREATED ON | MODE |
+| --- | --- | --- | --- | --- | --- |
+| Household questionnaire - final | 1 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 2 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+| Household questionnaire - final | 3 | 2026-01-1 | 2026-01-1 | 2026-01-1 | CAPI | 
+
+When data are exported, there will be three zip files downloaded--one for each version.
+
+```
+household_1_STATA_All_20260101T1200Z.zip
+household_2_STATA_All_20260101T1200Z.zip
+household_3_STATA_All_20260101T1200Z.zip
+```
+
+When any of these zip files is unpacked, one finds a set of files inside. The same-named files are found in each.
+
+```
+# household_1_STATA_All_20260101T1200Z.zip
+households.dta
+members.dta
+assets.dta
+```
+
+```
+# household_2_STATA_All_20260101T1200Z.zip
+households.dta
+members.dta
+assets.dta
+```
+
+For any given zip file, the files inside contains the observations collected with that version of the questionnaire.
+
+```stata
+/* version 1 */
+
+// count the nuber of observations
+use households.dta
+di _N
+100
+```
+
+```stata
+/* version 2 */
+
+// count the nuber of observations
+use households.dta
+di _N
+200
+```
+
+To facilitate data processing--both for the project and for the end user--the project appends goes file by file and appends the data.
+
+This yields a set of files with the expected names:
+
+```
+households.dta
+members.dta
+assets.dta
+```
+
+This also yields files that collect all observations across versions.
+
+```stata
+// the number of observations is the total of all the observation
+// counts for all versions
+use households.dta
+// total = 100 (version 1) + 200 (version 2)
+di _N
+300
+```
+
+## Metadata
+
+The project collects supervisors and their interviewers in `team_composition.dta`.
+
+While this file is meant for the project's internal needs, it can be copied and used outside of the project well.
+
+The variable names and contents come from Survey Solutions' API.
+
+These columns describe supervisors:
+
+- **SupervisorId** System identifier that is useful for the machine-facing operations but not for human-facing report.
+- **SupervisorName**. Supervisor's user name that is useful for team-level reporting.
+- **UserId.** System identifier. Same form as `SupervisorId` above.
+- **UserName.** User name for the interviewer.
+- **IsArchived.** Whether the interviewer's account has been archived.
+- **IsLocked.** Whether the interviewer's account has been locked.
+- **CreationDate.** When the interviewer's account was created.
+- **PhoneNumber.** Interviewer's phone number.
+- **FullName.** Interviewer's full name.
+- **DeviceId.** System identifier for the interviewer's data collection device.
